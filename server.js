@@ -70,8 +70,7 @@ app.use(cors());
 
 // Create basic route
 app.get('/', (req, res) => {
-    res.send(db.users)
-    res.send('success')
+    res.send('it is working')
 })
 
 // Sign-in route
