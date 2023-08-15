@@ -19,15 +19,14 @@ const db = knex({
     client: 'pg',
     connection: {
     //   host : '127.0.0.1',
-    //   host : 'postgresql-contoured-54841',
-        connectionString: process.env.DATABASE_URL,
-        ssl: {
-            rejectUnauthorized: false
-          }
     //   port : 5432,
     //   user : 'postgres',
     //   password : 'test',
     //   database : 'french_app'
+    connectionString: process.env.DATABASE_URL,
+    ssl: {
+        rejectUnauthorized: false
+      }
     }
   });
 
@@ -189,7 +188,7 @@ const client = new textToSpeech.TextToSpeechClient({
 app.get('/synthesize-speech', async (req, res) => {
     try {
         const { text } = req.query;
-        console.log(req.query)
+        console.log('test', req.query)
         const request = {
           input: { text },
           voice: { languageCode: 'fr-FR', ssmlGender: 'NEUTRAL' },
@@ -222,10 +221,12 @@ app.put('/progress', (req, res) => {
 })
 
 // Create a listen 
-// const PORT = 3000;
-app.listen(process.env.PORT || 3000, () => {
-    console.log(`Server running on port ${process.env.PORT}`)
+app.listen(3000, ()=> {
+    console.log('app is running on port 3000'); 
 })
+// app.listen(process.env.PORT || 3000, () => {
+//     console.log(`Server running on port ${process.env.PORT}`)
+// })
 
 
 // Plan of routes 
