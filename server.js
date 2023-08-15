@@ -19,11 +19,12 @@ const db = knex({
     client: 'pg',
     connection: {
     //   host : '127.0.0.1',
-      host : 'postgresql-contoured-54841',
-      port : 5432,
-      user : 'postgres',
-      password : 'test',
-      database : 'french_app'
+    //   host : 'postgresql-contoured-54841',
+        host: process.env.DATABASE_URL,
+    //   port : 5432,
+    //   user : 'postgres',
+    //   password : 'test',
+    //   database : 'french_app'
     }
   });
 
