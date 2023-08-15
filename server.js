@@ -79,18 +79,22 @@ app.get('/', (req, res) => {
 
 // Sign-in route
 app.post('/signin', (req, res) => {
+    const { email, password } = req.body;
+    if (!email || !password) {
+        return res.status(400).json('You have submitted invalid details')
+    }
     // here we need to check the users login details are correct 
     db.select('email', 'hash').from('login')
-        .where('email', '=', req.body.email)
+        .where('email', '=', email)
         .then(data => {
-            bcrypt.compare(req.body.password, data[0].hash, (err, isMatch) => {
+            bcrypt.compare(password, data[0].hash, (err, isMatch) => {
             if (err) {
                     console.error(err);
                 } else {
                 if (isMatch) {
                     // If isMatch is valid, return user details
                     return db.select('*').from('users')
-                        .where('email', '=', req.body.email)
+                        .where('email', '=', email)
                         .then(user => {
                             console.log('Password is correct.')
                             console.log(user);
@@ -110,7 +114,9 @@ app.post('/signin', (req, res) => {
 app.post('/register', (req, res) => {
     // Add user data from body to the database of users
     const { email, name, password } = req.body;
-
+    if (!email || !name || !password) {
+        return res.status(400).json('You have submitted invalid details')
+    }
     // const hash = bcrypt.hashSync(password)
 
     const bcryptCostFactor = 10;
