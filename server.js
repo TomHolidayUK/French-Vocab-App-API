@@ -190,8 +190,8 @@ const keyFilename = JSON.parse(process.env.KEYFILENAME);
 const client = new textToSpeech.TextToSpeechClient({
     // keyFilename: './direct-album-395018-0bfba99f4849.json',
     // keyFilename: './keyFilename',
-    keyFilename: keyFilename,
-    // keyFilename: process.env.keyFilename,
+    // keyFilename: keyFilename,
+    keyFilename: process.env.keyFilename,
     projectId: 'direct-album-395018',
   });
 
