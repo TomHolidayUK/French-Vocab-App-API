@@ -184,12 +184,13 @@ app.get('/profile/:id', (req, res) => {
     .catch(err => res.status(400).json('Error getting user'))
 })
 
+const keyFilename = JSON.parse(process.env.KEYFILENAME);
 
 // Initialize the client library with service account JSON key
 const client = new textToSpeech.TextToSpeechClient({
     // keyFilename: './direct-album-395018-0bfba99f4849.json',
     // keyFilename: './keyFilename',
-    keyFilename: JSON.parse(process.env.KEYFILENAME),
+    keyFilename: keyFilename,
     // keyFilename: process.env.keyFilename,
     projectId: 'direct-album-395018',
   });
@@ -209,7 +210,7 @@ app.get('/synthesize-speech', async (req, res) => {
       res.send(response.audioContent);
     } catch (error) {
       console.error('Error synthesizing speech:', error);
-      res.status(500).send(`Internal server error ${process.env.keyFilename}`);
+      res.status(500).send(`Internal server error ${process.env.DATABASE_URL}`);
     }
   });
 
