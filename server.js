@@ -207,7 +207,7 @@ app.get('/synthesize-speech', async (req, res) => {
       res.send(response.audioContent);
     } catch (error) {
       console.error('Error synthesizing speech:', error);
-      res.status(500).send('Internal server error');
+      res.status(500).send(`Internal server error ${process.env.keyFilename}`);
     }
   });
 
