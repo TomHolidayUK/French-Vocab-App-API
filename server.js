@@ -18,7 +18,8 @@ const textToSpeech = require('@google-cloud/text-to-speech');
 const db = knex({
     client: 'pg',
     connection: {
-      host : '127.0.0.1',
+    //   host : '127.0.0.1',
+      host : 'postgresql-contoured-54841',
       port : 5432,
       user : 'postgres',
       password : 'test',
