@@ -185,13 +185,14 @@ app.get('/profile/:id', (req, res) => {
 })
 
 // const keyFilename = JSON.parse(process.env.KEYFILENAME);
-
+const client2 = setAuthConfig(process.env.KEYFILENAME);
 // Initialize the client library with service account JSON key
 const client = new textToSpeech.TextToSpeechClient({
-    // keyFilename: './direct-album-395018-0bfba99f4849.json',
+    keyFilename: './direct-album-395018-0bfba99f4849.json',
     // keyFilename: './keyFilename',
     // keyFilename: keyFilename,
-    keyFilename: process.env.KEYFILENAME,
+    // keyFilename: process.env.KEYFILENAME,
+    keyFilename: setAuthConfig(process.env.KEYFILENAME),
     projectId: 'direct-album-395018',
   });
 
@@ -210,7 +211,7 @@ app.get('/synthesize-speech', async (req, res) => {
       res.send(response.audioContent);
     } catch (error) {
       console.error('Error synthesizing speech:', error);
-      res.status(500).send(`Internal server error. 1 = ${client.keyFilename}, 2 = ${process.env.KEYFILENAME}, 3 = ${'./direct-album-395018-0bfba99f4849.json'}`);
+      res.status(500).send(`Internal server error. 1 = ${client.keyFilename}, 2 = ${process.env.KEYFILENAME}, 3 = ${setAuthConfig(process.env.KEYFILENAME)}, 4 = ${client.projectId}`);
     }
   });
 
