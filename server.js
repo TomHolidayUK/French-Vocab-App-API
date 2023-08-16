@@ -16,19 +16,19 @@ const textToSpeech = require('@google-cloud/text-to-speech');
 
 
 const db = knex({
-    client: 'pg',
-    connection: {
-      host : '127.0.0.1',
-      port : 5432,
-      user : 'postgres',
-      password : 'test',
-      database : 'french_app'
-    // connectionString: process.env.DATABASE_URL,
-    // ssl: {
-    //     rejectUnauthorized: false
-    //   }
+    // client: 'pg',
+    // connection: {
+    //   host : '127.0.0.1',
+    //   port : 5432,
+    //   user : 'postgres',
+    //   password : 'test',
+    //   database : 'french_app'
+    connectionString: process.env.DATABASE_URL,
+    ssl: {
+        rejectUnauthorized: false
+      }
     }
-  });
+  );
 
 //   db.select('*').from('users').then(data => {
 //     console.log(data);
