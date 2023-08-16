@@ -41,7 +41,17 @@ const app = express();
 
 // Create middleware for parsing and cors (so we can communicate with server)
 app.use(express.json());
-app.use(cors());
+// app.use(cors());
+const allowedOrigins = ['https://learn-french-vocabulary-7c5e012473d2.herokuapp.com'];
+app.use(cors({
+  origin: function (origin, callback) {
+    if (allowedOrigins.includes(origin) || !origin) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  }
+}));
 
 // // Create local database for list of user. This will later be a real database
 // const database = {
