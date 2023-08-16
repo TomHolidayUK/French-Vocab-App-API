@@ -18,15 +18,15 @@ const textToSpeech = require('@google-cloud/text-to-speech');
 const db = knex({
     client: 'pg',
     connection: {
-    //   host : '127.0.0.1',
-    //   port : 5432,
-    //   user : 'postgres',
-    //   password : 'test',
-    //   database : 'french_app'
-    connectionString: process.env.DATABASE_URL,
-    ssl: {
-        rejectUnauthorized: false
-      }
+      host : '127.0.0.1',
+      port : 5432,
+      user : 'postgres',
+      password : 'test',
+      database : 'french_app'
+    // connectionString: process.env.DATABASE_URL,
+    // ssl: {
+    //     rejectUnauthorized: false
+    //   }
     }
   });
 
@@ -41,17 +41,17 @@ const app = express();
 
 // Create middleware for parsing and cors (so we can communicate with server)
 app.use(express.json());
-// app.use(cors());
-const allowedOrigins = ['https://learn-french-vocabulary-7c5e012473d2.herokuapp.com'];
-app.use(cors({
-  origin: function (origin, callback) {
-    if (allowedOrigins.includes(origin) || !origin) {
-      callback(null, true);
-    } else {
-      callback(new Error('Not allowed by CORS'));
-    }
-  }
-}));
+app.use(cors());
+// const allowedOrigins = ['https://learn-french-vocabulary-7c5e012473d2.herokuapp.com'];
+// app.use(cors({
+//   origin: function (origin, callback) {
+//     if (allowedOrigins.includes(origin) || !origin) {
+//       callback(null, true);
+//     } else {
+//       callback(new Error('Not allowed by CORS'));
+//     }
+//   }
+// }));
 
 // // Create local database for list of user. This will later be a real database
 // const database = {
@@ -195,16 +195,25 @@ app.get('/profile/:id', (req, res) => {
 })
 
 // const keyFilename = JSON.parse(process.env.KEYFILENAME);
-const client2 = setAuthConfig(process.env.KEYFILENAME);
+// const client2 = setAuthConfig(process.env.KEYFILENAME);
 // Initialize the client library with service account JSON key
 const client = new textToSpeech.TextToSpeechClient({
     keyFilename: './direct-album-395018-0bfba99f4849.json',
     // keyFilename: './keyFilename',
     // keyFilename: keyFilename,
     // keyFilename: process.env.KEYFILENAME,
-    keyFilename: setAuthConfig(process.env.KEYFILENAME),
     projectId: 'direct-album-395018',
   });
+
+// // Assuming KEYFILENAME contains the JSON data of the API keys
+// const keys = JSON.parse(process.env.KEYFILENAME);
+
+// // Configure the client
+// const client = new google.auth.JWT({
+//   email: keys.client_email,
+//   key: keys.private_key,
+//   scopes: ['https://www.googleapis.com/auth/cloud-platform'],
+// });
 
 app.get('/synthesize-speech', async (req, res) => {
     try {
@@ -221,7 +230,7 @@ app.get('/synthesize-speech', async (req, res) => {
       res.send(response.audioContent);
     } catch (error) {
       console.error('Error synthesizing speech:', error);
-      res.status(500).send(`Internal server error. 1 = ${client.keyFilename}, 2 = ${process.env.KEYFILENAME}, 3 = ${setAuthConfig(process.env.KEYFILENAME)}, 4 = ${client.projectId}`);
+      res.status(500).send(`Internal server error. 1 = ${client.keyFilename}, 2 = ${process.env.KEYFILENAME}, 3 = ${client.projectId}`);
     }
   });
 
@@ -242,12 +251,12 @@ app.put('/progress', (req, res) => {
 })
 
 // Create a listen 
-// app.listen(3000, ()=> {
-//     console.log('app is running on port 3000'); 
-// })
-app.listen(process.env.PORT || 3000, () => {
-    console.log(`Server running on port ${process.env.PORT}`)
+app.listen(3000, ()=> {
+    console.log('app is running on port 3000'); 
 })
+// app.listen(process.env.PORT || 3000, () => {
+//     console.log(`Server running on port ${process.env.PORT}`)
+// })
 
 
 // Plan of routes 
