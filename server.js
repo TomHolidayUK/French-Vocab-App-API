@@ -16,8 +16,8 @@ const textToSpeech = require('@google-cloud/text-to-speech');
 
 
 const db = knex({
-    // client: 'pg',
-    // connection: {
+    client: 'pg',
+    connection: {
     //   host : '127.0.0.1',
     //   port : 5432,
     //   user : 'postgres',
@@ -28,7 +28,7 @@ const db = knex({
         rejectUnauthorized: false
       }
     }
-  );
+});
 
 //   db.select('*').from('users').then(data => {
 //     console.log(data);
@@ -42,6 +42,9 @@ const app = express();
 // Create middleware for parsing and cors (so we can communicate with server)
 app.use(express.json());
 app.use(cors());
+
+// res.header('Access-Control-Allow-Origin', 'https://learn-french-vocabulary-7c5e012473d2.herokuapp.com');
+
 // const allowedOrigins = ['https://learn-french-vocabulary-7c5e012473d2.herokuapp.com'];
 // app.use(cors({
 //   origin: function (origin, callback) {
