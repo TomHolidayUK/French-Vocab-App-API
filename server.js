@@ -187,28 +187,17 @@ app.get('/profile/:id', (req, res) => {
     .catch(err => res.status(400).json('Error getting user'))
 })
 
-// const keyFilename = JSON.parse(process.env.KEYFILENAME);
-// const client2 = setAuthConfig(process.env.KEYFILENAME);
-// Initialize the client library with service account JSON key
-
-const keyData = process.env.KEYFILENAME2; // Assuming this contains your key data
-// const jsonContent = JSON.stringify(keyData);
-
+// Need to create a filepath for the environmental variables where the API keys are stored
+const keyData = process.env.KEYFILENAME2;
 const fs = require('fs');
-const tempFilePath = './temp-key-file.json'; // Change this to the desired path
-
+const tempFilePath = './temp-key-file.json';
 fs.writeFileSync(tempFilePath, keyData);
 
+// Create client with API keys path
 const client = new textToSpeech.TextToSpeechClient({
-    // keyFilename: './direct-album-395018-0bfba99f4849.json',
     keyFilename: tempFilePath,
-    // keyFilename: './keyFilename',
-    // keyFilename: keyFilename,
-    // keyFilename: process.env.KEYFILENAME,
     projectId: 'direct-album-395018',
   });
-
-
 
 app.get('/synthesize-speech', async (req, res) => {
     try {
