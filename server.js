@@ -18,11 +18,13 @@ const textToSpeech = require('@google-cloud/text-to-speech');
 const db = knex({
     client: 'pg',
     connection: {
+
     //   host : '127.0.0.1',
     //   port : 5432,
     //   user : 'postgres',
     //   password : 'test',
     //   database : 'french_app'
+
     connectionString: process.env.DATABASE_URL,
     ssl: {
         rejectUnauthorized: false
@@ -43,18 +45,6 @@ const app = express();
 app.use(express.json());
 app.use(cors());
 
-// res.header('Access-Control-Allow-Origin', 'https://learn-french-vocabulary-7c5e012473d2.herokuapp.com');
-
-// const allowedOrigins = ['https://learn-french-vocabulary-7c5e012473d2.herokuapp.com'];
-// app.use(cors({
-//   origin: function (origin, callback) {
-//     if (allowedOrigins.includes(origin) || !origin) {
-//       callback(null, true);
-//     } else {
-//       callback(new Error('Not allowed by CORS'));
-//     }
-//   }
-// }));
 
 // // Create local database for list of user. This will later be a real database
 // const database = {
