@@ -190,23 +190,23 @@ app.get('/profile/:id', (req, res) => {
 // const keyFilename = JSON.parse(process.env.KEYFILENAME);
 // const client2 = setAuthConfig(process.env.KEYFILENAME);
 // Initialize the client library with service account JSON key
-const client = new textToSpeech.TextToSpeechClient({
-    keyFilename: './direct-album-395018-0bfba99f4849.json',
-    // keyFilename: './keyFilename',
-    // keyFilename: keyFilename,
-    // keyFilename: process.env.KEYFILENAME,
-    projectId: 'direct-album-395018',
-  });
+// const client = new textToSpeech.TextToSpeechClient({
+//     keyFilename: './direct-album-395018-0bfba99f4849.json',
+//     // keyFilename: './keyFilename',
+//     // keyFilename: keyFilename,
+//     // keyFilename: process.env.KEYFILENAME,
+//     projectId: 'direct-album-395018',
+//   });
 
-// // Assuming KEYFILENAME contains the JSON data of the API keys
-// const keys = JSON.parse(process.env.KEYFILENAME);
+// Assuming KEYFILENAME contains the JSON data of the API keys
+const keys = JSON.parse(process.env.KEYFILENAME);
 
-// // Configure the client
-// const client = new google.auth.JWT({
-//   email: keys.client_email,
-//   key: keys.private_key,
-//   scopes: ['https://www.googleapis.com/auth/cloud-platform'],
-// });
+// Configure the client
+const client = new google.auth.JWT({
+  email: keys.client_email,
+  key: keys.private_key,
+  scopes: ['https://www.googleapis.com/auth/cloud-platform'],
+});
 
 app.get('/synthesize-speech', async (req, res) => {
     try {
