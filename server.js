@@ -205,7 +205,7 @@ app.get('/synthesize-speech', async (req, res) => {
         console.log('test', req.query)
         const request = {
           input: { text },
-          voice: { languageCode: 'fr-FR', ssmlGender: 'NEUTRAL' },
+          voice: { languageCode: 'fr-FR', ssmlGender: 'FEMALE' },
           audioConfig: { audioEncoding: 'MP3' },
         };
   
