@@ -15,6 +15,16 @@ const textToSpeech = require('@google-cloud/text-to-speech');
 // const util = require('util');
 
 
+
+// --------------------------------------
+
+// console.log(process.env.GPT_API_KEY);
+// console.log(process.env.KEYFILENAME2)
+
+// --------------------------------------
+
+
+
 const db = knex({
     client: 'pg',
     connection: {
@@ -46,38 +56,9 @@ app.use(express.json());
 app.use(cors());
 
 
-// // Create local database for list of user. This will later be a real database
-// const database = {
-//     users: [
-//         {
-//             id: '123',
-//             name: 'John',
-//             email: 'john@gmail.com',
-//             password: 'cookies',
-//             progress: 0,
-//             joined: new Date()
-//         },
-//         {
-//             id: '124',
-//             name: 'Sally',
-//             email: 'sally@gmail.com',
-//             password: 'bananas',
-//             progress: 0,
-//             joined: new Date()
-//         },
-//     ],
-//     login: [
-//         {
-//             id: '987',
-//             hash: '',
-//             email: 'john@gmail.com'
-//         }
-//     ]
-// }
-
 // Create basic route
 app.get('/', (req, res) => {
-    res.send('it is working')
+    res.send(process.env.TEST)
 })
 
 // Sign-in route
