@@ -4,13 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "//": "react-scripts start",
-    "start": "serve -s build",
-    "serverStart": "node server.js",
-    "start:dev": "nodemon server.js",
-    "dev": "node server.js"
+    "//": "node server.js",
+    "start": "serve -s build"
   },
-  "proxy": "http://localhost:3000",
   "keywords": [],
   "author": "",
   "license": "ISC",
