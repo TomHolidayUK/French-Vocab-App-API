@@ -2,26 +2,19 @@
 const express = require('express');
 const bcrypt = require('bcryptjs');
 const cors = require('cors');
-// const axios = require('axios');
+
 
 // knex is used to connect with database
 const knex = require('knex')
 
-// // Import the Google Cloud client library
+// Import the Google Cloud client library
 const textToSpeech = require('@google-cloud/text-to-speech');
 
-// // Import other required libraries
-// const fs = require('fs');
-// const util = require('util');
+// For GPT endpoint
+require('dotenv').config();
 
 
 
-// --------------------------------------
-
-// console.log(process.env.GPT_API_KEY);
-// console.log(process.env.KEYFILENAME2)
-
-// --------------------------------------
 
 
 
@@ -56,9 +49,31 @@ app.use(express.json());
 app.use(cors());
 
 
+
 // Create basic route
 app.get('/', (req, res) => {
-    res.send(process.env.TEST)
+    res.send('it is working!')
+})
+
+app.post('/chatgpt', (req, res) => {
+    const receivedText = req.body.question; 
+    // console.log('Received Text:', receivedText);
+
+    const OpenAI = require('openai');
+
+    const openai = new OpenAI({
+        apiKey: process.env.GPT_API_KEY,
+    });
+    
+    const chatCompletion = openai.chat.completions.create({
+        messages: [{ role: "user", content: receivedText }],
+        model: "gpt-3.5-turbo",
+    }).then((response) => {
+        // console.log(response.choices[0].message.content);
+        res.json(response.choices[0].message.content)
+    })
+
+    
 })
 
 // Sign-in route
