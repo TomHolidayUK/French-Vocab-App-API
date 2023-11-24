@@ -62,7 +62,7 @@ mongoDB();
 
 // Create basic route
 app.get('/', (req, res) => {
-    res.send('it is working!')
+    res.send(`it is working2! ${process.env.MONGODB_URL}`)
 })
 
 
