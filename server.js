@@ -363,7 +363,7 @@ app.post('/chatgpt', (req, res) => {
 const keyData = process.env.KEYFILENAME2;
 const fs = require('fs');
 const tempFilePath = './temp-key-file.json';
-// fs.writeFileSync(tempFilePath, keyData);
+fs.writeFileSync(tempFilePath, keyData);
 
 // Create client with API keys path
 const client = new textToSpeech.TextToSpeechClient({
@@ -557,12 +557,12 @@ app.put('/stats', (req, res) => {
 
 
 // Create a listen 
-app.listen(3000, ()=> {
-    console.log('app is running on port 3000'); 
-})
-// app.listen(process.env.PORT || 3000, () => {
-//     console.log(`Server running on port ${process.env.PORT}`)
+// app.listen(3000, ()=> {
+//     console.log('app is running on port 3000'); 
 // })
+app.listen(process.env.PORT || 3000, () => {
+    console.log(`Server running on port ${process.env.PORT}`)
+})
 
 
 // Plan of routes 
