@@ -1,6 +1,6 @@
 // Import packages
 const express = require('express'); // express is used to create the server
-// const bcrypt = require('bcryptjs'); // bcrypt is used to hash passwords
+const bcrypt = require('bcryptjs'); // bcrypt is used to hash passwords
 const cors = require('cors'); // cors is used to communicate between front and back end without problems
 const textToSpeech = require('@google-cloud/text-to-speech'); // For Google Cloud Text-to-Speech API
 const mongoDB = require('./config/mongoDB'); // For MongoDB
