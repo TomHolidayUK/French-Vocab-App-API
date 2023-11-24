@@ -159,7 +159,7 @@ app.put('/mongoentries/:userId', async (req, res) => {
     res.status(201).json(newUser);
     } catch (error) {
       console.error(error);
-      res.status(500).send('Server Error');
+      res.status(500).json({ error: error.message });
     }
   });
 
