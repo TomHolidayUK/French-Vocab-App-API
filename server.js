@@ -330,7 +330,7 @@ app.post('/chatgpt', (req, res) => {
 const keyData = process.env.KEYFILENAME2;
 const fs = require('fs');
 const tempFilePath = './temp-key-file.json';
-// fs.writeFileSync(tempFilePath, keyData);
+fs.writeFileSync(tempFilePath, keyData);
 
 // Create client with API keys path
 const client = new textToSpeech.TextToSpeechClient({
