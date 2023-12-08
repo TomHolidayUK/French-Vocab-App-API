@@ -165,26 +165,30 @@ app.post('/mongosignin', async (req, res) => {
       }
 })
 
+
 // Progress route with MongoDB
-app.put('/mongoprogress/:userId', async (req, res) => {
+app.post('/mongoprogress', async (req, res) => {
     try {
-        const userId = req.params.userId;
+        // const userId = req.params.userId;
+        const userId = req.query.param1;
+        const progress = req.query.param2;
         console.log('userid', userId)
+        console.log('progress', progress)
         // Find the user by their ID
         const user = await User.findById(userId);
-        console.log('user', user)
+        // console.log('user', user)
         if (!user) {
             return res.status(404).json({ message: 'User not found' });
         }
 
         // Increase the progression value by 1
-        user.progress += 1;
+        user.progress = progress;
 
         // Save the updated user
         await user.save();
         console.log('Progression increased successfully')
         res.json(user.progress);
-        console.log(user.progress)
+        // console.log(user.progress)
     } catch (error) {
         console.error(error);
         res.status(500).send('Server Error');
@@ -245,11 +249,12 @@ app.put('/mongoincorrect/:userId', async (req, res) => {
     }
 });
 
-// Increase attempts
-app.put('/mongoattempts/:userId', async (req, res) => {
+app.post('/mongoattempts', async (req, res) => {
     try {
-        const userId = req.params.userId;
+        const userId = req.query.param1;
+        const attempts = req.query.param2;
         console.log('userid', userId)
+        // console.log('attempts', attempts)
         // Find the user by their ID
         const user = await User.findById(userId);
 
@@ -258,13 +263,13 @@ app.put('/mongoattempts/:userId', async (req, res) => {
         }
 
         // Increase the progression value by 1
-        user.attempts += 1;
+        user.attempts = attempts;
 
         // Save the updated user
         await user.save();
-        console.log('Progression increased successfully')
+        console.log('Attempts increased successfully')
         res.json(user.attempts);
-        console.log(user.attempts)
+        console.log('attempts',user.attempts)
     } catch (error) {
         console.error(error);
         res.status(500).send('Server Error');
@@ -325,7 +330,7 @@ app.post('/chatgpt', (req, res) => {
 const keyData = process.env.KEYFILENAME2;
 const fs = require('fs');
 const tempFilePath = './temp-key-file.json';
-fs.writeFileSync(tempFilePath, keyData);
+// fs.writeFileSync(tempFilePath, keyData);
 
 // Create client with API keys path
 const client = new textToSpeech.TextToSpeechClient({
